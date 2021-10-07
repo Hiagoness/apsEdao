@@ -5,70 +5,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static apsEdao.Models.Calculadora;
+using apsEdao.Models.Calculadora;
 
 namespace apsEdao.Controllers
 {
     public class CalculadoraController : Controller
     {
+        //
+        //
+        //      FAZER A REQUEST NO SEGUINTE FORMATO:
+        //
+        //      {
+        //          "n1": valor,
+        //          "n2": valor
+        //      }
+        //
+        //
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ApiResponse<CalculadoraResponse>>> CalculadoraRequest([FromBody] float valorA, [FromBody] float valorB)
+        [Route("/unipam.rest/webresources/calculadora/somar")]
+        public CalculadoraResponse CalculadoraRequest([FromBody] CalculadoraRequest request)
         {
             try
             {
-                var calculadora = new Calculadora() {
-                    valor1 = valorA,
-                    valor2 = valorB
-                };
+                return new CalculadoraResponse(request);
 
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-        }
-
-        // GET: CalculadoraController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CalculadoraController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CalculadoraController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CalculadoraController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return null;
             }
         }
     }
